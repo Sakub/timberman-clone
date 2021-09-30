@@ -1,0 +1,13 @@
+@font-face {
+	font-family: retro-font;
+	src: url('./fonts/retroFont.ttf');
+}
+
+body {
+	text-align: center;
+}
+
+.score__text {
+	font-family: retro-font;
+	font-size: 3rem;
+}
