@@ -5,9 +5,36 @@
 
 body {
 	text-align: center;
+	background-image: url('./images/background.jpg');
+	background-position: center;
+	height: 90vh;
 }
 
 .score__text {
 	font-family: retro-font;
-	font-size: 3rem;
+	font-size: 3.5rem;
+	color: #fff;
+}
+
+.player {
+	width: 270px;
+	height: 270px;
+	background-image: url('./sprites/standing.png');
+	background-size: contain;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	top: 250px;
+}
+.player--left {
+	left: -200px;
+}
+.player--right {
+	right: -200px;
+	background-image: url('./sprites/standingRight.png');
+}
+@media (min-width: 1800px) {
+	.player {
+		top: 400px;
+	}
 }
