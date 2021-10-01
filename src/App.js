@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Score from './components/Score.js';
 import Player from './components/Player.js';
+import Tree from './components/Tree.js';
 
 function App() {
 	const [points, setPoints] = useState(0);
 	const player = useRef(null);
-
 	const DIRECTIONS = {
 		LEFT: 'player--left',
 		RIGHT: 'player--right',
@@ -17,8 +17,7 @@ function App() {
 	}
 
 	function movePlayer(direction) {
-		player.current.classList.remove(DIRECTIONS.LEFT);
-		player.current.classList.remove(DIRECTIONS.RIGHT);
+		player.current.classList.remove(DIRECTIONS.LEFT, DIRECTIONS.RIGHT);
 
 		player.current.classList.add(direction);
 		increaseScore();
@@ -33,9 +32,7 @@ function App() {
 
 		useEffect(() => {
 			function handle(event) {
-				if (event.code === key) {
-					callbackRef.current(event);
-				}
+				if (event.code === key) callbackRef.current(event);
 			}
 			document.addEventListener('keydown', handle);
 			return () => document.removeEventListener('keydown', handle);
@@ -48,6 +45,7 @@ function App() {
 	return (
 		<div className='App'>
 			<Score points={points} />
+			<Tree />
 			<Player playerRef={player} />
 		</div>
 	);

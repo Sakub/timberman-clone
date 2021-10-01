@@ -2,7 +2,9 @@
 	font-family: retro-font;
 	src: url('./fonts/retroFont.ttf');
 }
-
+.App {
+	position: relative;
+}
 body {
 	text-align: center;
 	background-image: url('./images/background.jpg');
@@ -14,6 +16,10 @@ body {
 	font-family: retro-font;
 	font-size: 3.5rem;
 	color: #fff;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 9999;
 }
 
 .player {
@@ -24,7 +30,7 @@ body {
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	top: 250px;
+	top: 400px;
 }
 .player--left {
 	left: -200px;
@@ -33,8 +39,38 @@ body {
 	right: -200px;
 	background-image: url('./sprites/standingRight.png');
 }
+.tree {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.log {
+	width: 165px;
+	height: 160px;
+	background-image: url('./sprites/log.png');
+	background-size: cover;
+}
+.log--right_branch {
+	background-image: url('./sprites/log--right-branch.png');
+	background-position: center;
+	width: 500px;
+	background-size: cover;
+}
+.log--left_branch {
+	background-image: url('./sprites/log--left-branch.png');
+	background-position: center;
+	width: 500px;
+	background-size: cover;
+}
 @media (min-width: 1800px) {
 	.player {
-		top: 400px;
+		top: 550px;
+	}
+	.log {
+		height: 190px;
 	}
 }
