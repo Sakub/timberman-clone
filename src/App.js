@@ -6,7 +6,10 @@ import Tree from './components/Tree.js';
 
 function App() {
 	const [points, setPoints] = useState(0);
+
 	const player = useRef(null);
+	const tree = useRef(null);
+
 	const DIRECTIONS = {
 		LEFT: 'player--left',
 		RIGHT: 'player--right',
@@ -14,6 +17,7 @@ function App() {
 
 	function increaseScore() {
 		setPoints(currPoints => currPoints + 1);
+		tree.current.pushNewLog();
 	}
 
 	function movePlayer(direction) {
@@ -34,7 +38,7 @@ function App() {
 			function handle(event) {
 				if (event.code === key) callbackRef.current(event);
 			}
-			document.addEventListener('keydown', handle);
+			document.addEventListener('keyup', handle);
 			return () => document.removeEventListener('keydown', handle);
 		}, [key]);
 	}
@@ -45,7 +49,7 @@ function App() {
 	return (
 		<div className='App'>
 			<Score points={points} />
-			<Tree />
+			<Tree ref={tree} />
 			<Player playerRef={player} />
 		</div>
 	);

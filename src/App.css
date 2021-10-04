@@ -10,6 +10,7 @@ body {
 	background-image: url('./images/background.jpg');
 	background-position: center;
 	height: 90vh;
+	overflow-y: hidden;
 }
 
 .score__text {
