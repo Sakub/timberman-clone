@@ -1,7 +1,8 @@
-const GameResetModal = ({ score, resetGame }) => {
+const GameResetModal = ({ score, highscore, resetGame }) => {
   return (
     <form className='gameResetModal'>
       <p className='modal__header'>GAME OVER!</p>
+      <p className='modal__score'>Your highscore: {highscore}</p>
       <p className='modal__score'>Your score: {score}</p>
 
       <button

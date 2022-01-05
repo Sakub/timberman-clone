@@ -12,12 +12,19 @@ function App() {
   };
 
   const [points, setPoints] = useState(0);
+  const [highscore, setHighscore] = useState(
+    parseInt(localStorage.getItem('highscore')) || 0
+  );
   const [gameRunning, setGameRunning] = useState(true);
 
   const player = useRef(null);
   const tree = useRef(null);
 
   const gameOver = () => {
+    if (points > highscore) {
+      setHighscore(points);
+      localStorage.setItem('highscore', points);
+    }
     player.current.classList.remove(DIRECTIONS.LEFT, DIRECTIONS.RIGHT);
     player.current.classList.add(DIRECTIONS.LEFT);
 
@@ -78,7 +85,11 @@ function App() {
       {gameRunning ? (
         <Score points={points} />
       ) : (
-        <GameResetModal score={points} resetGame={resetGame} />
+        <GameResetModal
+          score={points}
+          highscore={highscore}
+          resetGame={resetGame}
+        />
       )}
       <Tree ref={tree} />
       <Player playerRef={player} />
