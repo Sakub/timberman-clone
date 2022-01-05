@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import './App.css';
+
 import Score from './components/Score.js';
 import Player from './components/Player.js';
 import Tree from './components/Tree.js';
 import GameResetModal from './components/GameResetModal';
+
+import './App.css';
 
 function App() {
   const DIRECTIONS = {
@@ -37,27 +39,28 @@ function App() {
     setGameRunning(true);
   };
 
-  function increaseScore() {
+  const increaseScore = () => {
     setPoints(currPoints => currPoints + 1);
     tree.current.pushNewLog();
-  }
+  };
 
-  function movePlayer(direction) {
-    if (gameRunning) {
-      const nextBranch = tree.current.logType.props.type;
-      if (
-        (direction === DIRECTIONS.RIGHT && nextBranch === 'right_branch') ||
-        (direction === DIRECTIONS.LEFT && nextBranch === 'left_branch')
-      )
-        return gameOver();
-      player.current.classList.remove(DIRECTIONS.LEFT, DIRECTIONS.RIGHT);
+  const movePlayer = direction => {
+    if (!gameRunning) return;
 
-      player.current.classList.add(direction);
-      increaseScore();
-    }
-  }
+    const nextBranch = tree.current.logType.props.type;
 
-  function useKey(key, cb) {
+    if (
+      (direction === DIRECTIONS.RIGHT && nextBranch === 'right_branch') ||
+      (direction === DIRECTIONS.LEFT && nextBranch === 'left_branch')
+    )
+      return gameOver();
+    player.current.classList.remove(DIRECTIONS.LEFT, DIRECTIONS.RIGHT);
+
+    player.current.classList.add(direction);
+    increaseScore();
+  };
+
+  const useKey = (key, cb) => {
     const callbackRef = useRef(cb);
 
     useEffect(() => {
@@ -71,7 +74,7 @@ function App() {
       document.addEventListener('keyup', handle);
       return () => document.removeEventListener('keydown', handle);
     }, [key]);
-  }
+  };
 
   useKey('KeyA', () => movePlayer(DIRECTIONS.LEFT));
   useKey('KeyL', () => movePlayer(DIRECTIONS.RIGHT));

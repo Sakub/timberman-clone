@@ -16,15 +16,16 @@ const Tree = forwardRef((props, ref) => {
   ];
 
   const [logs, setLogs] = useState(startTree);
-  function selectRandomLogType() {
+
+  const selectRandomLogType = () => {
     let keys = Object.keys(logTypes);
     return logTypes[keys[(keys.length * Math.random()) << 0]];
-  }
+  };
 
   useImperativeHandle(ref, () => ({
-    logType: logs.at(logs.length - 2),
+    logType: logs.at(logs.length - 2), //return type of log which is above player
     pushNewLog() {
-      setLogs([<Log type={selectRandomLogType()} />, ...logs.slice(0, -1)]);
+      setLogs([<Log type={selectRandomLogType()} />, ...logs.slice(0, -1)]); //remove bottom log and push a new one on the top of tree
     },
     resetTree() {
       setLogs(startTree);
