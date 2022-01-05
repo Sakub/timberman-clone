@@ -1,77 +1,124 @@
 @font-face {
-	font-family: retro-font;
-	src: url('./fonts/retroFont.ttf');
+  font-family: retro-font;
+  src: url('./fonts/retroFont.ttf');
 }
 .App {
-	position: relative;
+  position: relative;
+  height: 100vh;
 }
 body {
-	text-align: center;
-	background-image: url('./images/background.jpg');
-	background-position: center;
-	height: 90vh;
-	overflow-y: hidden;
+  text-align: center;
+  background-image: url('./images/background.jpg');
+  background-position: center;
+  height: 90vh;
+  overflow-y: hidden;
 }
 
 .score__text {
-	font-family: retro-font;
-	font-size: 3.5rem;
-	color: #fff;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 9999;
+  font-family: retro-font;
+  font-size: 3.5rem;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
 }
 
 .player {
-	width: 270px;
-	height: 270px;
-	background-image: url('./sprites/standing.png');
-	background-size: contain;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	top: 400px;
+  width: 270px;
+  height: 270px;
+  background-image: url('./sprites/standing.png');
+  background-size: contain;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 400px;
 }
 .player--left {
-	left: -200px;
+  left: -200px;
 }
 .player--right {
-	right: -200px;
-	background-image: url('./sprites/standingRight.png');
+  right: -200px;
+  background-image: url('./sprites/standingRight.png');
 }
 .tree {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .log {
-	width: 165px;
-	height: 160px;
-	background-image: url('./sprites/log.png');
-	background-size: cover;
+  width: 165px;
+  height: 160px;
+  background-image: url('./sprites/log.png');
+  background-size: cover;
 }
 .log--right_branch {
-	background-image: url('./sprites/log--right-branch.png');
-	background-position: center;
-	width: 500px;
-	background-size: cover;
+  background-image: url('./sprites/log--right-branch.png');
+  background-position: center;
+  width: 500px;
+  background-size: cover;
 }
 .log--left_branch {
-	background-image: url('./sprites/log--left-branch.png');
-	background-position: center;
-	width: 500px;
-	background-size: cover;
+  background-image: url('./sprites/log--left-branch.png');
+  background-position: center;
+  width: 500px;
+  background-size: cover;
 }
+
+.gameResetModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  width: fit-content;
+  padding: 30px;
+  color: #fff;
+  background: url('./images/planks.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 999;
+  font-family: 'retro-font';
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #000;
+}
+
+.modal__header {
+  margin: 0;
+  font-size: 3rem;
+}
+.modal__score {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.modal__button {
+  border: 2px solid #fff;
+  background: #432f1a;
+  font-family: 'retro-font';
+  color: #fff;
+  width: 150px;
+  padding: 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+.modal__button:hover {
+  transform: translateY(-2px);
+}
+
 @media (min-width: 1800px) {
-	.player {
-		top: 550px;
-	}
-	.log {
-		height: 190px;
-	}
+  .player {
+    top: 550px;
+  }
+  .log {
+    height: 190px;
+  }
 }

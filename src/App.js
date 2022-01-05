@@ -3,56 +3,87 @@ import './App.css';
 import Score from './components/Score.js';
 import Player from './components/Player.js';
 import Tree from './components/Tree.js';
+import GameResetModal from './components/GameResetModal';
 
 function App() {
-	const [points, setPoints] = useState(0);
+  const DIRECTIONS = {
+    LEFT: 'player--left',
+    RIGHT: 'player--right',
+  };
 
-	const player = useRef(null);
-	const tree = useRef(null);
+  const [points, setPoints] = useState(0);
+  const [gameRunning, setGameRunning] = useState(true);
 
-	const DIRECTIONS = {
-		LEFT: 'player--left',
-		RIGHT: 'player--right',
-	};
+  const player = useRef(null);
+  const tree = useRef(null);
 
-	function increaseScore() {
-		setPoints(currPoints => currPoints + 1);
-		tree.current.pushNewLog();
-	}
+  const gameOver = () => {
+    player.current.classList.remove(DIRECTIONS.LEFT, DIRECTIONS.RIGHT);
+    player.current.classList.add(DIRECTIONS.LEFT);
 
-	function movePlayer(direction) {
-		player.current.classList.remove(DIRECTIONS.LEFT, DIRECTIONS.RIGHT);
+    setGameRunning(false);
+  };
 
-		player.current.classList.add(direction);
-		increaseScore();
-	}
+  const resetGame = () => {
+    tree.current.resetTree();
+    setPoints(0);
+    setGameRunning(true);
+  };
 
-	function useKey(key, cb) {
-		const callbackRef = useRef(cb);
+  function increaseScore() {
+    setPoints(currPoints => currPoints + 1);
+    tree.current.pushNewLog();
+  }
 
-		useEffect(() => {
-			callbackRef.current = cb;
-		});
+  function movePlayer(direction) {
+    if (gameRunning) {
+      const nextBranch = tree.current.logType.props.type;
+      if (
+        (direction === DIRECTIONS.RIGHT && nextBranch === 'right_branch') ||
+        (direction === DIRECTIONS.LEFT && nextBranch === 'left_branch')
+      )
+        return gameOver();
+      player.current.classList.remove(DIRECTIONS.LEFT, DIRECTIONS.RIGHT);
 
-		useEffect(() => {
-			function handle(event) {
-				if (event.code === key) callbackRef.current(event);
-			}
-			document.addEventListener('keyup', handle);
-			return () => document.removeEventListener('keydown', handle);
-		}, [key]);
-	}
+      player.current.classList.add(direction);
+      increaseScore();
+    }
+  }
 
-	useKey('KeyA', () => movePlayer(DIRECTIONS.LEFT));
-	useKey('KeyL', () => movePlayer(DIRECTIONS.RIGHT));
+  function useKey(key, cb) {
+    const callbackRef = useRef(cb);
 
-	return (
-		<div className='App'>
-			<Score points={points} />
-			<Tree ref={tree} />
-			<Player playerRef={player} />
-		</div>
-	);
+    useEffect(() => {
+      callbackRef.current = cb;
+    });
+
+    useEffect(() => {
+      function handle(event) {
+        if (event.code === key) callbackRef.current(event);
+      }
+      document.addEventListener('keyup', handle);
+      return () => document.removeEventListener('keydown', handle);
+    }, [key]);
+  }
+
+  useKey('KeyA', () => movePlayer(DIRECTIONS.LEFT));
+  useKey('KeyL', () => movePlayer(DIRECTIONS.RIGHT));
+
+  useKey('Enter', () => {
+    if (!gameRunning) resetGame();
+  });
+
+  return (
+    <div className='App'>
+      {gameRunning ? (
+        <Score points={points} />
+      ) : (
+        <GameResetModal score={points} resetGame={resetGame} />
+      )}
+      <Tree ref={tree} />
+      <Player playerRef={player} />
+    </div>
+  );
 }
 
 export default App;
