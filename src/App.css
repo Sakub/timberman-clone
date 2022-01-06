@@ -122,6 +122,26 @@ body {
   transform: translateY(-2px);
 }
 
+.timebar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 20px;
+  border: 3px solid #ff0;
+  background-color: rgba(255, 0, 0, 0.5);
+  margin-top: 5px;
+  z-index: 9999;
+  border-radius: 15px;
+}
+
+.timebar__time {
+  height: 100%;
+  border-radius: 15px;
+  background: #f00;
+  transition: width 0.3s ease-in-out;
+}
+
 @media (min-width: 1800px) {
   .player {
     top: 550px;
